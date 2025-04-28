@@ -8,15 +8,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CardManager))]
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI playerEnergyText;
     public Image enemyHealthBar;
-    public List<CardHandler> cards;
     public Button playButton;
 
     public GameObject gameOverScreen;
     public GameObject pauseScreen;
+
+    private CardManager _cardManager;
 
     public int playerEnergy = 5;
     public int startingEnemyHealth = 20;
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _cardManager = GetComponent<CardManager>();
+
         playerEnergyText.text = playerEnergy.ToString();
         _enemyHealth = startingEnemyHealth;
 
@@ -48,9 +52,9 @@ public class GameManager : MonoBehaviour
         var barScale = new Vector3(healthPercentage, 1, 1);
         enemyHealthBar.transform.localScale = barScale;
 
-        var selectedCards = cards.Where(card => card.IsSelected).ToList();
+        var selectedCards = _cardManager.CurrentHand.Where(card => card.IsSelected).ToList();
         playButton.interactable =
-            selectedCards.Count != 0 && selectedCards.Sum(card => card.cardData.energyCost) <= playerEnergy;
+            selectedCards.Count != 0 && selectedCards.Sum(card => card.CardData.energyCost) <= playerEnergy;
 
         if (!CheckIfGameOver()) return;
 
@@ -60,11 +64,11 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
-        var selectedCards = cards.Where(card => card.IsSelected).ToList();
-        var isEnhanced = selectedCards.Any(card => card.cardData.cardType == CardType.Enhancement);
-        selectedCards.ForEach(card => HandleCardAction(card.cardData.cardType, isEnhanced));
+        var selectedCards = _cardManager.CurrentHand.Where(card => card.IsSelected).ToList();
+        var isEnhanced = selectedCards.Any(card => card.CardData.cardType == CardType.Enhancement);
+        selectedCards.ForEach(card => HandleCardAction(card.CardData.cardType, isEnhanced));
 
-        var energyCost = cards.Where(card => card.IsSelected).Sum(card => card.cardData.energyCost);
+        var energyCost = _cardManager.CurrentHand.Where(card => card.IsSelected).Sum(card => card.CardData.energyCost);
         playerEnergy = Math.Clamp(playerEnergy - energyCost + AddedEnergyPerRound, 0, 7);
 
         selectedCards.ForEach(card => card.IsSelected = false);
