@@ -19,7 +19,7 @@ namespace Card
         public bool IsSelected
         {
             get => _isSelected;
-            set
+            private set
             {
                 var offset = value ? SelectedCardPosition : -SelectedCardPosition;
 
@@ -37,6 +37,15 @@ namespace Card
 
             _cardEventHandler = gameObject.AddComponent<CardEventHandler>();
             _cardEventHandler.CardClicked += (_, _) => { IsSelected = !IsSelected; };
+
+            var layout = GetComponentInParent<HorizontalLayoutNotified>();
+            layout.onLayoutChanged.AddListener(() =>
+            {
+                // Make sure the position of selected cards stays the same after layout refresh
+                if (_isSelected)
+                    gameObject.transform.position = new Vector3(gameObject.transform.position.x,
+                        gameObject.transform.position.y + SelectedCardPosition, gameObject.transform.position.z);
+            });
         }
     }
 }

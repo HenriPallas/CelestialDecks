@@ -2,6 +2,7 @@ using System.Linq;
 using Card;
 using Enemy;
 using Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Button playButton;
+    public TextMeshProUGUI gameOverText;
 
     public GameObject gameOverScreen;
     public GameObject pauseScreen;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int startingEnemyHealth = 20;
 
     private bool _isGameOver;
+    private GameEndState _gameEndState;
     private CardManager _cardManager;
     private PlayerManager _playerManager;
     private EnemyManager _enemyManager;
@@ -45,14 +48,12 @@ public class GameManager : MonoBehaviour
 
         if (_isGameOver) return;
 
-        var selectedCards = _cardManager.CurrentHand.Where(card => card.IsSelected).ToList();
+        // Update whether the play button is clickable or not
+        var selectedCards = _cardManager.GetSelectedCards();
         playButton.interactable =
             selectedCards.Count != 0 && selectedCards.Sum(card => card.CardData.energyCost) <= _playerManager.Energy;
 
-        if (!CheckIfGameOver()) return;
-
-        gameOverScreen.SetActive(true);
-        _isGameOver = true;
+        CheckIfGameOver();
     }
 
     private void OnPlayButtonClicked()
@@ -60,7 +61,28 @@ public class GameManager : MonoBehaviour
         _cardManager.PlayCurrentHand();
     }
 
-    private bool CheckIfGameOver() => _enemyManager.Health == 0;
+    private void CheckIfGameOver()
+    {
+        if (_enemyManager.Health == 0)
+        {
+            _gameEndState = GameEndState.Won;
+            SetGameOver();
+            return;
+        }
+
+        if (_cardManager.IsHandEmpty && _cardManager.IsDeckEmpty)
+        {
+            _gameEndState = GameEndState.Lost;
+            SetGameOver();
+        }
+    }
+
+    private void SetGameOver()
+    {
+        gameOverText.text = _gameEndState == GameEndState.Won ? "You win!" : "You lose!";
+        _isGameOver = true;
+        gameOverScreen.SetActive(true);
+    }
 
     public static void OnRestartButtonClicked()
     {
@@ -76,4 +98,10 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+}
+
+internal enum GameEndState
+{
+    Won,
+    Lost,
 }

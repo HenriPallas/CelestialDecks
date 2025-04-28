@@ -431,7 +431,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 527398089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cb01a35bafec694d813c48aa2580df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -448,6 +448,9 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+  onLayoutChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &534125774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1971357106}
+  gameOverText: {fileID: 534125776}
   gameOverScreen: {fileID: 1660229582}
   pauseScreen: {fileID: 964515412}
   startingPlayerEnergy: 5
@@ -1115,14 +1119,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
   - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
   - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
-  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
-  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
-  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
-  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
-  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
   - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
-  - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
-  - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
+  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
+  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
+  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
+  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
+  - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
+  - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+  - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
   - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
   - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
   - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}

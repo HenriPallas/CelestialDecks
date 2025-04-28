@@ -7,8 +7,8 @@ namespace Player
     {
         public TextMeshProUGUI energyText;
 
-        private const int AddedEnergyPerRound = 4;
-        private const int MaxEnergy = 7;
+        public const int AddedEnergyPerRound = 4;
+        private const int MaxEnergy = 8;
         private int _energy;
 
         public int Energy
@@ -20,11 +20,6 @@ namespace Player
         private void Update()
         {
             energyText.text = Energy.ToString();
-        }
-
-        public void UpdateEnergyFromHand(int energyCost)
-        {
-            Energy = Energy - energyCost + AddedEnergyPerRound;
         }
     }
 }
