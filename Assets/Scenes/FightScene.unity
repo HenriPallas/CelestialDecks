@@ -1048,6 +1048,8 @@ GameObject:
   - component: {fileID: 991890780}
   - component: {fileID: 991890779}
   - component: {fileID: 991890781}
+  - component: {fileID: 991890783}
+  - component: {fileID: 991890782}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: GameManager
@@ -1067,12 +1069,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2256859d24d8540a2061c7f2ac8d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerEnergyText: {fileID: 1163655495}
-  enemyHealthBar: {fileID: 1694887050}
   playButton: {fileID: 1971357106}
   gameOverScreen: {fileID: 1660229582}
   pauseScreen: {fileID: 964515412}
-  playerEnergy: 5
+  startingPlayerEnergy: 5
   startingEnemyHealth: 20
 --- !u!4 &991890780
 Transform:
@@ -1134,6 +1134,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 140221b5fd521cc41a6cad1bdf6a6229, type: 2}
   cardPrefab: {fileID: 608545870577827964, guid: c68ab68ce5430c448b6f05cd907da697, type: 3}
   cardLayoutParent: {fileID: 527398090}
+--- !u!114 &991890782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991890778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549780dc938a6ac4980e1d0ff29fbd09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1694887050}
+--- !u!114 &991890783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991890778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214600075d443b04ea4c7b116cc77555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyText: {fileID: 1163655495}
 --- !u!1 &1085858348
 GameObject:
   m_ObjectHideFlags: 0
