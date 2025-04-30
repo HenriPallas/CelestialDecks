@@ -1,3 +1,4 @@
+using Scriptables;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ namespace Enemy
         private int _maxHealth;
         private int _shield;
         private int _maxShield;
+        private int _dodge;
+        public HullObject hull;
 
         public int Health
         {
@@ -22,6 +25,12 @@ namespace Enemy
         {
             get => _shield;
             private set => _shield = Mathf.Clamp(value, 0, int.MaxValue);
+        }
+
+        public int Dodge
+        {
+            get => _dodge;
+            private set => _dodge = Mathf.Clamp(value, 0, 1);
         }
 
         public void SetStartingHealth(int health)
