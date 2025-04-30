@@ -10,7 +10,6 @@ namespace Player
         public Image shieldBar;
         public TextMeshProUGUI energyText;
         public TextMeshProUGUI healthText;
-        public TextMeshProUGUI scrapText;
 
         public const int AddedEnergyPerRound = 4;
         private const int MaxEnergy = 8;
@@ -19,10 +18,7 @@ namespace Player
         private int _energy;
         private int _health;
         private int _shield;
-        private int _scrap; // Move to game manager? Add, remove.
-        public int Games;
-        public int Kills;
-        public int Deaths;
+        private float _dodge;
 
         public int Energy
         {
@@ -42,17 +38,31 @@ namespace Player
             set => _shield = Mathf.Clamp(value, 0, MaxShield);
         }
 
-        public int Scrap
+        public float Dodge
         {
-            get => _scrap;
-            set => _scrap = Mathf.Clamp(value, 0, int.MaxValue);
+            get => _dodge;
+            set => _dodge = Mathf.Clamp(value, 0f, 1f);
         }
 
         private void Update()
         {
             energyText.text = Energy.ToString();
             healthText.text = Health.ToString() + "/" + MaxHealth.ToString() + " + " + Shield.ToString() + "/" + MaxShield.ToString();
-            scrapText.text = Scrap.ToString();
+        }
+
+        public void SetHealth(int value)
+        {
+            Health = value;
+        }
+
+        public void SetShield(int value)
+        {
+            Shield = value;
+        }
+
+        public void SetDodge(float value)
+        {
+            Dodge = value;
         }
 
         public void TakeDamage(int damage)

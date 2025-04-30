@@ -13,7 +13,7 @@ namespace Enemy
         private int _maxHealth;
         private int _shield;
         private int _maxShield;
-        private int _dodge;
+        private float _dodge;
         public HullObject hull;
 
         public int Health
@@ -28,10 +28,10 @@ namespace Enemy
             private set => _shield = Mathf.Clamp(value, 0, int.MaxValue);
         }
 
-        public int Dodge
+        public float Dodge
         {
             get => _dodge;
-            private set => _dodge = Mathf.Clamp(value, 0, 1);
+            private set => _dodge = Mathf.Clamp(value, 0f, 1f);
         }
 
         public void SetStartingHealth(int health)
@@ -41,10 +41,16 @@ namespace Enemy
             UpdateBars();
         }
 
-        public void SetStartingShield(int health)
+        public void SetStartingShield(int shield)
         {
-            _maxShield = health;
-            Shield = health;
+            _maxShield = shield;
+            Shield = shield;
+            UpdateBars();
+        }
+
+        public void SetStartingDodge(float dodge)
+        {
+            Dodge = dodge;
             UpdateBars();
         }
 
