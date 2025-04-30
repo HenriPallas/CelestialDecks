@@ -9,6 +9,8 @@ namespace Enemy
 
         private int _health;
         private int _maxHealth;
+        private int _shield;
+        private int _maxShield;
 
         public int Health
         {
@@ -16,10 +18,22 @@ namespace Enemy
             private set => _health = Mathf.Clamp(value, 0, int.MaxValue);
         }
 
+        public int Shield
+        {
+            get => _shield;
+            private set => _shield = Mathf.Clamp(value, 0, int.MaxValue);
+        }
+
         public void SetStartingHealth(int health)
         {
             _maxHealth = health;
             Health = health;
+        }
+
+        public void SetStartingShield(int health)
+        {
+            _maxShield = health;
+            Shield = health;
         }
 
         public void TakeDamage(int damage)
