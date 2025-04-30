@@ -10,5 +10,8 @@ namespace Scriptables
         public string deckDescription;
         public List<float> deckMultipliers;
         public List<CardObject> deckCards;
+        public bool isUnlocked;
+        public bool isLockedByDefault;
+        public int unlockCost;
     }
 }

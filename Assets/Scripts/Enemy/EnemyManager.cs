@@ -7,6 +7,7 @@ namespace Enemy
     public class EnemyManager : MonoBehaviour
     {
         public Image healthBar;
+        public Image shieldBar;
 
         private int _health;
         private int _maxHealth;
@@ -37,20 +38,58 @@ namespace Enemy
         {
             _maxHealth = health;
             Health = health;
+            UpdateBars();
         }
 
         public void SetStartingShield(int health)
         {
             _maxShield = health;
             Shield = health;
+            UpdateBars();
+        }
+
+        public void HealDamage(int value)
+        {
+            Health += value;
+            UpdateBars();
+        }
+
+        public void AddShield(int value)
+        {
+            Shield += value;
+            UpdateBars();
         }
 
         public void TakeDamage(int damage)
         {
-            Health -= damage;
+            if (Shield > 0)
+            {
+                if (Shield >= damage)
+                {
+                    Shield -= damage;
+                }
+                else
+                {
+                    damage -= Shield;
+                    Shield = 0;
+                    Health -= damage;
+                }
+            }
+            else
+            {
+                Health -= damage;
+            }
+            UpdateBars();
+        }
+
+        public void UpdateBars()
+        {
             var healthPercentage = (float)_health / _maxHealth;
-            var barScale = new Vector3(healthPercentage, 1, 1);
-            healthBar.transform.localScale = barScale;
+            var healthBarScale = new Vector3(healthPercentage, 1, 1);
+            healthBar.transform.localScale = healthBarScale;
+            var shieldPercentage = (float)_shield / _maxShield;
+            var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+            shieldBar.transform.localScale = shieldBarScale;
         }
     }
 }

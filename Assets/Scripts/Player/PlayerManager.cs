@@ -10,7 +10,6 @@ namespace Player
         public Image shieldBar;
         public TextMeshProUGUI energyText;
         public TextMeshProUGUI healthText;
-        public TextMeshProUGUI shieldText;
         public TextMeshProUGUI scrapText;
 
         public const int AddedEnergyPerRound = 4;
@@ -20,7 +19,7 @@ namespace Player
         private int _energy;
         private int _health;
         private int _shield;
-        private int _scrap; // Move to game manager?
+        private int _scrap; // Move to game manager? Add, remove.
         public int Games;
         public int Kills;
         public int Deaths;
@@ -52,8 +51,7 @@ namespace Player
         private void Update()
         {
             energyText.text = Energy.ToString();
-            healthText.text = Health.ToString() + "/" + MaxHealth.ToString();
-            shieldText.text = Shield.ToString() + "/" + MaxShield.ToString();
+            healthText.text = Health.ToString() + "/" + MaxHealth.ToString() + " + " + Shield.ToString() + "/" + MaxShield.ToString();
             scrapText.text = Scrap.ToString();
         }
 
@@ -76,13 +74,29 @@ namespace Player
             {
                 Health -= damage;
             }
+            UpdateBars();
         }
 
-        // Take damage, heal damage, heal shield, add scrap, remove scrap,
-
-        public void ChangeHealth(int value)
+        public void HealDamage(int value)
         {
             Health += value;
+            UpdateBars();
+        }
+
+        public void AddShield(int value)
+        {
+            Shield += value;
+            UpdateBars();
+        }
+
+        public void UpdateBars()
+        {
+            var healthPercentage = (float)Health / MaxHealth;
+            var shieldPercentage = (float)Shield / MaxShield;
+            var healthBarScale = new Vector3(healthPercentage, 1, 1);
+            var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+            healthBar.transform.localScale = healthBarScale;
+            shieldBar.transform.localScale = shieldBarScale;
         }
     }
 }
