@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     public int startingPlayerEnergy = 5;
     public int startingEnemyHealth = 20;
+    public int startingEnemyShield = 20;
+    public int startingPlayerHealth = 20;
+    public int startingPlayerShield = 20;
     public int Scrap; 
     public int Games;
     public int Kills;
@@ -40,6 +43,9 @@ public class GameManager : MonoBehaviour
 
         _playerManager.Energy = startingPlayerEnergy;
         _enemyManager.SetStartingHealth(startingEnemyHealth);
+        _enemyManager.SetStartingShield(startingEnemyShield);
+        _playerManager.SetStartingHealth(startingPlayerHealth);
+        _playerManager.SetStartingShield(startingPlayerShield);
 
         playButton.onClick.AddListener(OnPlayButtonClicked);
     }

@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6278e025c2e31dc4b891e2162542ca09, type: 3}
   m_Name: Dreadnought
   m_EditorClassIdentifier: 
-  hullName: 
-  hullDescription: 
-  hullMultipliers: []
+  hullName: Dreadnought
+  hullDescription: A slow-moving behemoth that dominates the battlefield.
+  hullMultipliers:
+  - 2.3
+  - 1.9
+  - 0.4
+  - 0.9
+  - 0.8

@@ -12,7 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd104b1db917bf42bf225e35db97b60, type: 3}
   m_Name: Corvette
   m_EditorClassIdentifier: 
-  deckName: 
-  deckDescription: 
-  deckMultipliers: []
-  deckCards: []
+  deckName: Corvette
+  deckDescription: A small fast ship with low firepower.
+  deckMultipliers:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  deckCards:
+  - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+  - {fileID: 11400000, guid: 140221b5fd521cc41a6cad1bdf6a6229, type: 2}
+  - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
+  - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
+  - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
+  isUnlocked: 1
+  isLockedByDefault: 1
+  unlockCost: 0

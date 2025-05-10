@@ -11,14 +11,19 @@ namespace Player
         public TextMeshProUGUI energyText;
         public TextMeshProUGUI healthText;
 
-        public const int AddedEnergyPerRound = 4;
+        private const int MaxHealth = int.MaxValue;
+        private const int MaxShield = int.MaxValue;
         private const int MaxEnergy = 8;
-        private int MaxHealth = 100;
-        private int MaxShield = 50;
+
         private int _energy;
+        // private int _maxEnergy;
         private int _health;
+        private int _maxHealth;
         private int _shield;
+        private int _maxShield;
         private float _dodge;
+
+        public const int AddedEnergyPerRound = 4;
 
         public int Energy
         {
@@ -44,26 +49,89 @@ namespace Player
             set => _dodge = Mathf.Clamp(value, 0f, 1f);
         }
 
-        private void Update()
+        // Set start stats
+
+        public void SetStartingHealth(int health)
         {
-            energyText.text = Energy.ToString();
-            healthText.text = Health.ToString() + "/" + MaxHealth.ToString() + " + " + Shield.ToString() + "/" + MaxShield.ToString();
+            Debug.Log(health);
+            _maxHealth = health;
+            Health = health;
+            UpdateBars();
         }
+
+        public void SetStartingShield(int shield)
+        {
+            Debug.Log(shield);
+            _maxShield = shield;
+            Shield = shield;
+            UpdateBars();
+        }
+
+        public void SetStartingDodge(float dodge)
+        {
+            Dodge = dodge;
+            UpdateBars();
+        }
+
+        public void SetStartingEnergy(int energy)
+        {
+            Energy = energy;
+            UpdateBars();
+        }
+
+        // Set stat values
 
         public void SetHealth(int value)
         {
             Health = value;
+            UpdateBars();
         }
 
         public void SetShield(int value)
         {
             Shield = value;
+            UpdateBars();
         }
 
         public void SetDodge(float value)
         {
             Dodge = value;
+            UpdateBars();
         }
+
+        public void SetEnergy(int energy)
+        {
+            Energy = energy;
+            UpdateBars();
+        }
+
+        // Add to stat values
+
+        public void HealDamage(int value)
+        {
+            Health += value;
+            UpdateBars();
+        }
+
+        public void AddShield(int value)
+        {
+            Shield += value;
+            UpdateBars();
+        }
+
+        public void AddDodge(float value)
+        {
+            Dodge += value;
+            UpdateBars();
+        }
+
+        public void AddEnergy(int value)
+        {
+            Energy += value;
+            UpdateBars();
+        }
+
+        // Remove from stat value
 
         public void TakeDamage(int damage)
         {
@@ -87,26 +155,53 @@ namespace Player
             UpdateBars();
         }
 
-        public void HealDamage(int value)
+        public void RemoveHealth(int value)
         {
-            Health += value;
+            Health -= value;
             UpdateBars();
         }
 
-        public void AddShield(int value)
+        public void RemoveShield(int value)
         {
-            Shield += value;
+            Shield -= value;
             UpdateBars();
+        }
+
+        public void RemoveDodge(float value)
+        {
+            Dodge -= value;
+            UpdateBars();
+        }
+
+        public void RemoveEnergy(int value)
+        {
+            Energy -= value;
+            UpdateBars();
+        }
+
+        // Update stats UI
+
+        private void Update()
+        {
+            energyText.text = _energy.ToString();
+            healthText.text = _health.ToString() + "/" + _maxHealth.ToString() + " + " + _shield.ToString() + "/" + _maxShield.ToString();
         }
 
         public void UpdateBars()
         {
-            var healthPercentage = (float)Health / MaxHealth;
-            var shieldPercentage = (float)Shield / MaxShield;
-            var healthBarScale = new Vector3(healthPercentage, 1, 1);
-            var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
-            healthBar.transform.localScale = healthBarScale;
-            shieldBar.transform.localScale = shieldBarScale;
+            if (_health > 0 && _maxHealth > 0)
+            {
+                var healthPercentage = (float)_health / _maxHealth;
+                var healthBarScale = new Vector3(healthPercentage, 1, 1);
+                healthBar.transform.localScale = healthBarScale;
+            }
+
+            if (_shield > 0 && _maxShield > 0)
+            {
+                var shieldPercentage = (float)_shield / _maxShield;
+                var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+                shieldBar.transform.localScale = shieldBarScale;
+            }
         }
     }
 }

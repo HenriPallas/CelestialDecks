@@ -9,23 +9,27 @@ namespace Enemy
         public Image healthBar;
         public Image shieldBar;
 
+        private const int MaxHealth = int.MaxValue;
+        private const int MaxShield = int.MaxValue;
+
         private int _health;
         private int _maxHealth;
         private int _shield;
         private int _maxShield;
         private float _dodge;
+
         public HullObject hull;
 
         public int Health
         {
             get => _health;
-            private set => _health = Mathf.Clamp(value, 0, int.MaxValue);
+            private set => _health = Mathf.Clamp(value, 0, MaxHealth);
         }
 
         public int Shield
         {
             get => _shield;
-            private set => _shield = Mathf.Clamp(value, 0, int.MaxValue);
+            private set => _shield = Mathf.Clamp(value, 0, MaxShield);
         }
 
         public float Dodge
@@ -34,8 +38,11 @@ namespace Enemy
             private set => _dodge = Mathf.Clamp(value, 0f, 1f);
         }
 
+        // Set start stats
+
         public void SetStartingHealth(int health)
         {
+            Debug.Log(health);
             _maxHealth = health;
             Health = health;
             UpdateBars();
@@ -43,6 +50,7 @@ namespace Enemy
 
         public void SetStartingShield(int shield)
         {
+            Debug.Log(shield);
             _maxShield = shield;
             Shield = shield;
             UpdateBars();
@@ -53,6 +61,28 @@ namespace Enemy
             Dodge = dodge;
             UpdateBars();
         }
+
+        // Set stat values
+
+        public void SetHealth(int value)
+        {
+            Health = value;
+            UpdateBars();
+        }
+
+        public void SetShield(int value)
+        {
+            Shield = value;
+            UpdateBars();
+        }
+
+        public void SetDodge(float value)
+        {
+            Dodge = value;
+            UpdateBars();
+        }
+
+        // Add to stat values
 
         public void HealDamage(int value)
         {
@@ -65,6 +95,14 @@ namespace Enemy
             Shield += value;
             UpdateBars();
         }
+
+        public void AddDodge(float value)
+        {
+            Dodge += value;
+            UpdateBars();
+        }
+
+        // Remove from stat value
 
         public void TakeDamage(int damage)
         {
@@ -88,14 +126,41 @@ namespace Enemy
             UpdateBars();
         }
 
+        public void RemoveHealth(int value)
+        {
+            Health -= value;
+            UpdateBars();
+        }
+
+        public void RemoveShield(int value)
+        {
+            Shield -= value;
+            UpdateBars();
+        }
+
+        public void RemoveDodge(float value)
+        {
+            Dodge -= value;
+            UpdateBars();
+        }
+
+        // Update UI
+
         public void UpdateBars()
         {
-            var healthPercentage = (float)_health / _maxHealth;
-            var healthBarScale = new Vector3(healthPercentage, 1, 1);
-            healthBar.transform.localScale = healthBarScale;
-            var shieldPercentage = (float)_shield / _maxShield;
-            var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
-            shieldBar.transform.localScale = shieldBarScale;
+            if (_health > 0 && _maxHealth > 0)
+            {
+                var healthPercentage = (float)_health / _maxHealth;
+                var healthBarScale = new Vector3(healthPercentage, 1, 1);
+                healthBar.transform.localScale = healthBarScale;
+            }
+
+            if (_shield > 0 && _maxShield > 0)
+            {
+                var shieldPercentage = (float)_shield / _maxShield;
+                var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+                shieldBar.transform.localScale = shieldBarScale;
+            }
         }
     }
 }

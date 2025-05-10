@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Enhance
   m_EditorClassIdentifier: 
   cardName: Enhance
+  cardDescription: 
   energyCost: 2
   cardType: 3
+  cardValue: 2
+  cardEffects: []

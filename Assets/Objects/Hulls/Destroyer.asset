@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6278e025c2e31dc4b891e2162542ca09, type: 3}
   m_Name: Destroyer
   m_EditorClassIdentifier: 
-  hullName: 
-  hullDescription: 
-  hullMultipliers: []
+  hullName: Destroyer
+  hullDescription: A light combat vessel specialized in fast, hard strikes.
+  hullMultipliers:
+  - 2
+  - 0.7
+  - 1.4
+  - 0.8
+  - 0.9

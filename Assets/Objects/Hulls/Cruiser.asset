@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6278e025c2e31dc4b891e2162542ca09, type: 3}
   m_Name: Cruiser
   m_EditorClassIdentifier: 
-  hullName: 
-  hullDescription: 
-  hullMultipliers: []
+  hullName: Cruiser
+  hullDescription: Well-balanced with flexibility to adapt to most strategies.
+  hullMultipliers:
+  - 1.2
+  - 1.1
+  - 1
+  - 1
+  - 1.1

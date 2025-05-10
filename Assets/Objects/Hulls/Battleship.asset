@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6278e025c2e31dc4b891e2162542ca09, type: 3}
   m_Name: Battleship
   m_EditorClassIdentifier: 
-  hullName: 
-  hullDescription: 
-  hullMultipliers: []
+  hullName: Battleship
+  hullDescription: A heavy vessel with devastating firepower and high durability.
+  hullMultipliers:
+  - 1.8
+  - 2
+  - 0.6
+  - 0.7
+  - 1
