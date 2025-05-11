@@ -16,5 +16,5 @@ MonoBehaviour:
   cardDescription: 
   energyCost: 2
   cardType: 0
-  cardValue: 1
+  cardValue: 3
   cardEffects: []

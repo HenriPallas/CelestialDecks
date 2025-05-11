@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Enemy;
+using JetBrains.Annotations;
 using Player;
 using Scriptables;
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,6 +21,7 @@ namespace Card
         public Transform cardLayoutParent;
 
         private readonly List<HandCard> _currentHandCards = new();
+        private int _deferredEnergyAmount;
         public bool IsHandUsable { get; private set; }
         private const float CardDrawTime = 0.5f;
         private const float CardRemoveTime = 0.5f;
@@ -59,7 +62,7 @@ namespace Card
                 .Select(idx => _currentHandCards[idx].Card).ToArray();
 
             // Handle card actions
-            var isEnhanced = selectedCards.Any(c => c.CardData.cardType == CardType.Enhancement);
+            var enhanceCard = selectedCards.FirstOrDefault(c => c.CardData.cardType == CardType.Enhancement);
             while (selectedCardsIndices.Count > 0)
             {
                 yield return new WaitForSeconds(CardRemoveTime);
@@ -76,33 +79,65 @@ namespace Card
                 }
 
                 var card = _currentHandCards[cardIdx].Card;
-                HandleCardAction(card.CardData.cardType, isEnhanced);
+                HandleCardAction(card.CardData, enhanceCard?.CardData);
                 RemoveCardFromHand(cardIdx);
                 _playerManager.Energy -= card.CardData.energyCost;
             }
 
             yield return new WaitForSeconds(1.0f);
 
+            _playerManager.Energy += _deferredEnergyAmount;
             _playerManager.Energy += ShipManager.AddedEnergyPerRound;
+            _playerManager.RestoreDodge();
 
             StartCoroutine(DrawCardsCoroutine()); // Hand will be made usable from here again
         }
 
-        private void HandleCardAction(CardType cardType, bool isEnhanced)
+        private void HandleCardAction(CardObject card, [CanBeNull] CardObject enhanceCard)
         {
-            switch (cardType)
+            switch (card.cardType)
             {
                 case CardType.Attack:
-                    var damage = isEnhanced ? 3 : 2;
+                    var damage = card.cardValue;
+                    if (enhanceCard is not null)
+                    {
+                        damage += enhanceCard.cardValue;
+                    }
+
                     _enemyManager.Damage(damage);
                     break;
                 case CardType.Energy:
-                    _playerManager.Energy += 2;
+                    var energy = card.cardValue;
+                    if (enhanceCard is not null)
+                    {
+                        energy += enhanceCard.cardValue;
+                    }
+
+                    // Defer giving the energy to the player only after the cards have been played
+                    _deferredEnergyAmount = energy;
                     break;
-                case CardType.Shields: // TODO: Implement when the player's ship gets implemented.
-                case CardType.Dodge: // TODO: Implement when the player's ship gets implemented.
+                case CardType.Shields:
+                    var shields = card.cardValue;
+                    if (enhanceCard is not null)
+                    {
+                        shields += enhanceCard.cardValue;
+                    }
+
+                    _playerManager.Shield += shields;
+                    break;
+                case CardType.Dodge:
+                    var dodge = 0.2f;
+                    if (enhanceCard is not null)
+                    {
+                        dodge += 0.1f;
+                    }
+
+                    _playerManager.ApplyDodge(dodge);
+                    break;
                 case CardType.Enhancement: // Doesn't really have an "action" associated.
-                default: break;
+                    break;
+                default:
+                    throw new NotImplementedException("Card action not implemented");
             }
         }
 

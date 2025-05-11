@@ -14,6 +14,7 @@ public class ShipManager : MonoBehaviour
     private int _health;
     private int _shield;
     private float _dodge;
+    private float _lastDodge;
 
     public HullObject hull;
 
@@ -56,10 +57,14 @@ public class ShipManager : MonoBehaviour
         }
     }
 
-    public float Dodge
+    protected float Dodge
     {
         get => _dodge;
-        set => _dodge = Mathf.Clamp(value, 0f, 1f);
+        set
+        {
+            _dodge = Mathf.Clamp(value, 0f, 1f);
+            UpdateUI();
+        }
     }
 
     // Set start stats
@@ -70,12 +75,17 @@ public class ShipManager : MonoBehaviour
         Health = maxHealth;
         Shield = maxShield;
         Dodge = startingDodge;
+        _lastDodge = startingDodge;
     }
 
     // Remove from stat value
 
     public void Damage(int damage)
     {
+        // Handle the possibility of dodging the attack
+        if (Random.value <= Dodge) return;
+        
+        // Otherwise inflict damage
         if (Shield > 0)
         {
             if (Shield >= damage)
@@ -95,6 +105,16 @@ public class ShipManager : MonoBehaviour
         }
 
         UpdateUI();
+    }
+
+    public void ApplyDodge(float dodge)
+    {
+        Dodge += dodge;
+    }
+
+    public void RestoreDodge()
+    {
+        Dodge = _lastDodge;
     }
 
     protected virtual void UpdateUI()
