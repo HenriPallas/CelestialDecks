@@ -14,12 +14,20 @@ public class GameManager : MonoBehaviour
 {
     public Button playButton;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI scrapText;
 
     public GameObject gameOverScreen;
     public GameObject pauseScreen;
 
     public int startingPlayerEnergy = 5;
     public int startingEnemyHealth = 20;
+    public int startingEnemyShield = 20;
+    public int startingPlayerHealth = 20;
+    public int startingPlayerShield = 20;
+    public int Scrap; 
+    public int Games;
+    public int Kills;
+    public int Deaths;
 
     private bool _isGameOver;
     private GameEndState _gameEndState;
@@ -35,6 +43,9 @@ public class GameManager : MonoBehaviour
 
         _playerManager.Energy = startingPlayerEnergy;
         _enemyManager.SetStartingHealth(startingEnemyHealth);
+        _enemyManager.SetStartingShield(startingEnemyShield);
+        _playerManager.SetStartingHealth(startingPlayerHealth);
+        _playerManager.SetStartingShield(startingPlayerShield);
 
         playButton.onClick.AddListener(OnPlayButtonClicked);
     }
@@ -52,6 +63,8 @@ public class GameManager : MonoBehaviour
         var selectedCards = _cardManager.GetSelectedCards();
         playButton.interactable =
             selectedCards.Count != 0 && selectedCards.Sum(card => card.CardData.energyCost) <= _playerManager.Energy;
+
+        scrapText.text = Scrap.ToString();
 
         CheckIfGameOver();
     }

@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1f76a2d5657454bb5cb75b7a86b427, type: 3}
-  m_Name: Enhance
+  m_Script: {fileID: 11500000, guid: 6278e025c2e31dc4b891e2162542ca09, type: 3}
+  m_Name: Corvette
   m_EditorClassIdentifier: 
-  cardName: Enhance
-  cardDescription: 
-  energyCost: 2
-  cardType: 3
-  cardValue: 2
-  cardEffects: []
+  hullName: Corvette
+  hullDescription: The smallest and fastest hull, ideal for evasive tactics.
+  hullMultipliers:
+  - 0.6
+  - 0.5
+  - 2.2
+  - 1.5
+  - 1

@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   cardName: Energy
+  cardDescription: 
   energyCost: 1
   cardType: 4
+  cardValue: 2
+  cardEffects: []

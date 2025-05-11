@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Dodge
   m_EditorClassIdentifier: 
   cardName: Dodge
+  cardDescription: 
   energyCost: 1
   cardType: 2
+  cardValue: 1
+  cardEffects: []

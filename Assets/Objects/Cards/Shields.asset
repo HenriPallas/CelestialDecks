@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Shields
   m_EditorClassIdentifier: 
   cardName: Shields
+  cardDescription: 
   energyCost: 2
   cardType: 1
+  cardValue: 5
+  cardEffects: []
