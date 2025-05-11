@@ -1,4 +1,6 @@
 using Scriptables;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,7 @@ namespace Enemy
     {
         public Image healthBar;
         public Image shieldBar;
+        public TextMeshProUGUI healthText;
 
         private const int MaxHealth = int.MaxValue;
         private const int MaxShield = int.MaxValue;
@@ -36,6 +39,11 @@ namespace Enemy
         {
             get => _dodge;
             private set => _dodge = Mathf.Clamp(value, 0f, 1f);
+        }
+
+        private void Update()
+        {
+            healthText.text = $"{_health}/{_maxHealth} + {_shield}/{_maxShield}";
         }
 
         // Set start stats
@@ -158,7 +166,8 @@ namespace Enemy
             if (_shield > 0 && _maxShield > 0)
             {
                 var shieldPercentage = (float)_shield / _maxShield;
-                var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+                var percentageOfHealth = (float)_shield / _maxHealth;
+                var shieldBarScale = new Vector3(shieldPercentage * percentageOfHealth, 1, 1);
                 shieldBar.transform.localScale = shieldBarScale;
             }
         }

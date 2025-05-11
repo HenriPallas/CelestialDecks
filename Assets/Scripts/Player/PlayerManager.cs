@@ -184,7 +184,7 @@ namespace Player
         private void Update()
         {
             energyText.text = _energy.ToString();
-            healthText.text = _health.ToString() + "/" + _maxHealth.ToString() + " + " + _shield.ToString() + "/" + _maxShield.ToString();
+            healthText.text = $"{_health}/{_maxHealth} + {_shield}/{_maxShield}";
         }
 
         public void UpdateBars()
@@ -199,7 +199,8 @@ namespace Player
             if (_shield > 0 && _maxShield > 0)
             {
                 var shieldPercentage = (float)_shield / _maxShield;
-                var shieldBarScale = new Vector3(shieldPercentage, 1, 1);
+                var percentageOfHealth = (float)_shield / _maxHealth;
+                var shieldBarScale = new Vector3(shieldPercentage * percentageOfHealth, 1, 1);
                 shieldBar.transform.localScale = shieldBarScale;
             }
         }

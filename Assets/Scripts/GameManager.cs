@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public int startingEnemyShield = 20;
     public int startingPlayerHealth = 20;
     public int startingPlayerShield = 20;
-    public int Scrap; 
+    public int Scrap;
     public int Games;
     public int Kills;
     public int Deaths;
@@ -62,7 +62,8 @@ public class GameManager : MonoBehaviour
         // Update whether the play button is clickable or not
         var selectedCards = _cardManager.GetSelectedCards();
         playButton.interactable =
-            selectedCards.Count != 0 && selectedCards.Sum(card => card.CardData.energyCost) <= _playerManager.Energy;
+            (selectedCards.Count != 0 && selectedCards.Sum(card => card.CardData.energyCost) <= _playerManager.Energy)
+            && _cardManager.IsHandUsable;
 
         scrapText.text = Scrap.ToString();
 
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
+        playButton.interactable = false;
         _cardManager.PlayCurrentHand();
     }
 
