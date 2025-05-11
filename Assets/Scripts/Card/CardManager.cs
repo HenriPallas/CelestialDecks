@@ -83,7 +83,7 @@ namespace Card
 
             yield return new WaitForSeconds(1.0f);
 
-            _playerManager.Energy += PlayerManager.AddedEnergyPerRound;
+            _playerManager.Energy += ShipManager.AddedEnergyPerRound;
 
             StartCoroutine(DrawCardsCoroutine()); // Hand will be made usable from here again
         }
@@ -94,7 +94,7 @@ namespace Card
             {
                 case CardType.Attack:
                     var damage = isEnhanced ? 3 : 2;
-                    _enemyManager.TakeDamage(damage);
+                    _enemyManager.Damage(damage);
                     break;
                 case CardType.Energy:
                     _playerManager.Energy += 2;
