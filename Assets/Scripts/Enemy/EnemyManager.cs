@@ -33,7 +33,11 @@ namespace Enemy
                 var currentHealthPercentage = (float)FullHealth / FullMaxHealth;
 
                 // health is too low to play offensive
-                if (currentHealthPercentage <= 0.4f) return false;
+                if (currentHealthPercentage <= 0.4f)
+                {
+                    // small chance to still attack
+                    return Random.value < 0.2f;
+                }
 
                 // small chance to still put up some defenses
                 return Random.value > 0.2f;
