@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   cardName: Energy
-  cardDescription: 
+  cardDescription: Gain an extra 2 energy (4 if enhanced) at end of turn
   energyCost: 1
   cardType: 4
   cardValue: 2

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enhance
   m_EditorClassIdentifier: 
   cardName: Enhance
-  cardDescription: 
+  cardDescription: Enhances all cards played in this hand
   energyCost: 2
   cardType: 3
   cardValue: 2

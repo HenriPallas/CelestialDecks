@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dodge
   m_EditorClassIdentifier: 
   cardName: Dodge
-  cardDescription: 
+  cardDescription: Up your dodge by 20% (30% if enhanced)
   energyCost: 1
   cardType: 2
   cardValue: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   cardName: Attack
-  cardDescription: 
+  cardDescription: Attack the enemy for 3 points (5 if enhanced)
   energyCost: 2
   cardType: 0
   cardValue: 3

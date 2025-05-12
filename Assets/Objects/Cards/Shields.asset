@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shields
   m_EditorClassIdentifier: 
   cardName: Shields
-  cardDescription: 
+  cardDescription: Boost your shields by 3 points (5 if enhanced)
   energyCost: 2
   cardType: 1
   cardValue: 3

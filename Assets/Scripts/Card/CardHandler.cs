@@ -10,6 +10,7 @@ namespace Card
     {
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI energyCostText;
+        public TextMeshProUGUI descriptionText;
 
         private CardEventHandler _cardEventHandler;
 
@@ -34,6 +35,7 @@ namespace Card
         {
             nameText.text = CardData.name;
             energyCostText.text = CardData.energyCost.ToString();
+            descriptionText.text = CardData.cardDescription;
 
             _cardEventHandler = gameObject.AddComponent<CardEventHandler>();
             _cardEventHandler.CardClicked += (_, _) => { IsSelected = !IsSelected; };
