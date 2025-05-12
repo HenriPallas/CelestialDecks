@@ -22,7 +22,7 @@ public class ShipManager : MonoBehaviour
     public HullObject hull;
 
     public int maxEnergy = 8;
-    public const int AddedEnergyPerRound = 4;
+    public const int AddedEnergyPerRound = 5;
     public int startingEnergy = 5;
 
     public float startingDodge = 0.4f;
