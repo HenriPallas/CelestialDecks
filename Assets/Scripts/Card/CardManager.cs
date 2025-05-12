@@ -87,9 +87,7 @@ namespace Card
             yield return new WaitForSeconds(1.0f);
 
             // Restore any dodge modifier applied from previous turn
-            foreach (var ship in ships)
-                ship.RestoreDodge();
-
+            _enemyManager.RestoreDodge();
 
             // Enemy AI attack
             var enemyCard = _enemyManager.GetNextCardFromMove(out var enemyEnhanceCard);
@@ -103,6 +101,7 @@ namespace Card
             yield return new WaitForSeconds(1.0f);
 
             // Turn end
+            _playerManager.RestoreDodge();
             foreach (var ship in ships)
             {
                 ship.Energy += ship.DeferredEnergy;

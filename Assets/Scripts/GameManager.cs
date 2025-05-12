@@ -76,6 +76,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        if (_playerManager.Health == 0)
+        {
+            _gameEndState = GameEndState.Lost;
+            SetGameOver();
+            return;
+        }
+
         if (_cardManager.IsHandEmpty && _cardManager.IsDeckEmpty)
         {
             _gameEndState = GameEndState.Lost;
