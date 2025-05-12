@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
         _enemyManager = GetComponent<EnemyManager>();
 
         playButton.onClick.AddListener(OnPlayButtonClicked);
+        
+        _enemyManager.CalculateNextMove(true);
     }
 
     private void Update()

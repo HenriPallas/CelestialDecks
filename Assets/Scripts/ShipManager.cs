@@ -1,13 +1,16 @@
 using Scriptables;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ShipManager : MonoBehaviour
 {
     public Image healthBar;
     public Image shieldBar;
     public TextMeshProUGUI healthText;
+    public TextMeshProUGUI dodgeText;
 
     // ship stats
     private int _energy;
@@ -36,6 +39,8 @@ public class ShipManager : MonoBehaviour
             UpdateUI();
         }
     }
+
+    public int DeferredEnergy { get; set; }
 
     public int Health
     {
@@ -67,6 +72,9 @@ public class ShipManager : MonoBehaviour
         }
     }
 
+    protected int FullHealth => Health + Shield;
+    protected int FullMaxHealth => maxHealth + maxShield;
+
     // Set start stats
 
     private void Start()
@@ -84,7 +92,7 @@ public class ShipManager : MonoBehaviour
     {
         // Handle the possibility of dodging the attack
         if (Random.value <= Dodge) return;
-        
+
         // Otherwise inflict damage
         if (Shield > 0)
         {
@@ -120,6 +128,7 @@ public class ShipManager : MonoBehaviour
     protected virtual void UpdateUI()
     {
         healthText.text = $"{_health}/{maxHealth} + {_shield}/{maxShield}";
+        dodgeText.text = $"{(int)(Math.Round(Dodge, 2) * 100)}%";
 
         // Update the health and shield bars
         var healthPercentage = (float)_health / maxHealth;

@@ -21,7 +21,6 @@ namespace Card
         public Transform cardLayoutParent;
 
         private readonly List<HandCard> _currentHandCards = new();
-        private int _deferredEnergyAmount;
         public bool IsHandUsable { get; private set; }
         private const float CardDrawTime = 0.5f;
         private const float CardRemoveTime = 0.5f;
@@ -56,6 +55,7 @@ namespace Card
         private IEnumerator PlayHandCoroutine()
         {
             IsHandUsable = false;
+            var ships = new ShipManager[] { _playerManager, _enemyManager };
 
             var selectedCardsIndices = GetSelectedHandCardIndices();
             var selectedCards = selectedCardsIndices
@@ -79,21 +79,44 @@ namespace Card
                 }
 
                 var card = _currentHandCards[cardIdx].Card;
-                HandleCardAction(card.CardData, enhanceCard?.CardData);
+                HandleCardAction(_playerManager, _enemyManager, card.CardData, enhanceCard?.CardData);
                 RemoveCardFromHand(cardIdx);
                 _playerManager.Energy -= card.CardData.energyCost;
             }
 
             yield return new WaitForSeconds(1.0f);
 
-            _playerManager.Energy += _deferredEnergyAmount;
-            _playerManager.Energy += ShipManager.AddedEnergyPerRound;
-            _playerManager.RestoreDodge();
+            // Restore any dodge modifier applied from previous turn
+            foreach (var ship in ships)
+                ship.RestoreDodge();
+
+
+            // Enemy AI attack
+            var enemyCard = _enemyManager.GetNextCardFromMove(out var enemyEnhanceCard);
+            while (enemyCard is not null)
+            {
+                HandleCardAction(_enemyManager, _playerManager, enemyCard, enemyEnhanceCard);
+                yield return new WaitForSeconds(CardRemoveTime);
+                enemyCard = _enemyManager.GetNextCardFromMove(out enemyEnhanceCard);
+            }
+
+            yield return new WaitForSeconds(1.0f);
+
+            // Turn end
+            foreach (var ship in ships)
+            {
+                ship.Energy += ship.DeferredEnergy;
+                ship.DeferredEnergy = 0;
+                ship.Energy += ShipManager.AddedEnergyPerRound;
+            }
+
+            _enemyManager.CalculateNextMove();
 
             StartCoroutine(DrawCardsCoroutine()); // Hand will be made usable from here again
         }
 
-        private void HandleCardAction(CardObject card, [CanBeNull] CardObject enhanceCard)
+        private void HandleCardAction(ShipManager attackingShip, ShipManager attackedShip, CardObject card,
+            [CanBeNull] CardObject enhanceCard)
         {
             switch (card.cardType)
             {
@@ -104,7 +127,7 @@ namespace Card
                         damage += enhanceCard.cardValue;
                     }
 
-                    _enemyManager.Damage(damage);
+                    attackedShip.Damage(damage);
                     break;
                 case CardType.Energy:
                     var energy = card.cardValue;
@@ -114,7 +137,7 @@ namespace Card
                     }
 
                     // Defer giving the energy to the player only after the cards have been played
-                    _deferredEnergyAmount = energy;
+                    attackingShip.DeferredEnergy = energy;
                     break;
                 case CardType.Shields:
                     var shields = card.cardValue;
@@ -123,7 +146,7 @@ namespace Card
                         shields += enhanceCard.cardValue;
                     }
 
-                    _playerManager.Shield += shields;
+                    attackingShip.Shield += shields;
                     break;
                 case CardType.Dodge:
                     var dodge = 0.2f;
@@ -132,7 +155,7 @@ namespace Card
                         dodge += 0.1f;
                     }
 
-                    _playerManager.ApplyDodge(dodge);
+                    attackingShip.ApplyDodge(dodge);
                     break;
                 case CardType.Enhancement: // Doesn't really have an "action" associated.
                     break;
