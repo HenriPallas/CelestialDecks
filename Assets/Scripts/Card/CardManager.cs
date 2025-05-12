@@ -188,6 +188,19 @@ namespace Card
             {
                 var randomIdx = Random.Range(0, deck.Count);
                 var card = deck[randomIdx];
+
+                if (_currentHandCards.Any(c => c.Card.CardData.cardType == CardType.Enhancement) &&
+                    deck.Any(c => c.cardType != CardType.Enhancement))
+                {
+                    // if we already have an enhancement card, try to draw something else
+                    // only if there are any other cards in the deck besides enhancements
+                    while (card.cardType == CardType.Enhancement)
+                    {
+                        randomIdx = Random.Range(0, deck.Count);
+                        card = deck[randomIdx];
+                    }
+                }
+
                 deck.RemoveAt(randomIdx);
 
                 var cardObject = Instantiate(cardPrefab, cardLayoutParent);
