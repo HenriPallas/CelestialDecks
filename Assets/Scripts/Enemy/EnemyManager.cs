@@ -72,6 +72,9 @@ namespace Enemy
 
             _lastOffensiveMoveIdx = randomIdx;
 
+            _currentMoveEnhanceCard = possibleOffenseMoves[randomIdx].move
+                .FirstOrDefault(c => c.cardType == CardType.Enhancement);
+
             var moveCopy = new CardObject[possibleOffenseMoves[randomIdx].move.Count];
             possibleOffenseMoves[randomIdx].move.CopyTo(moveCopy);
             _currentMove = new List<CardObject>(moveCopy);
@@ -88,6 +91,9 @@ namespace Enemy
             }
 
             _lastDefensiveMoveIdx = randomIdx;
+
+            _currentMoveEnhanceCard = possibleDefenseMoves[randomIdx].move
+                .FirstOrDefault(c => c.cardType == CardType.Enhancement);
 
             var moveCopy = new CardObject[possibleDefenseMoves[randomIdx].move.Count];
             possibleDefenseMoves[randomIdx].move.CopyTo(moveCopy);
