@@ -1581,7 +1581,7 @@ MonoBehaviour:
   hull: {fileID: 11400000, guid: 72a7074610c0695489857213d924e54f, type: 2}
   maxEnergy: 8
   startingEnergy: 5
-  startingDodge: 0.25
+  startingDodge: 0.2
   maxHealth: 20
   maxShield: 10
   handText: {fileID: 1402309937}
@@ -1593,6 +1593,14 @@ MonoBehaviour:
   - move:
     - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
     - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+  - move:
+    - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+    - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+  - move:
+    - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+  - move:
+    - {fileID: 11400000, guid: 4312ba86af37b9a4d925798099c511b4, type: 2}
+    - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
   possibleDefenseMoves:
   - move:
     - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
@@ -1601,6 +1609,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
     - {fileID: 11400000, guid: 7e6184ae6899710479b4b1ab4105ddc3, type: 2}
     - {fileID: 11400000, guid: 140221b5fd521cc41a6cad1bdf6a6229, type: 2}
+  - move:
+    - {fileID: 11400000, guid: 9c1fc578d8f3c5c429db331b8e3cbd7e, type: 2}
+    - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
+  - move:
+    - {fileID: 11400000, guid: 140221b5fd521cc41a6cad1bdf6a6229, type: 2}
+    - {fileID: 11400000, guid: 0d3f444c970e4e14bb94f9876b69d46f, type: 2}
 --- !u!114 &991890783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,7 +1634,7 @@ MonoBehaviour:
   hull: {fileID: 0}
   maxEnergy: 8
   startingEnergy: 5
-  startingDodge: 0.25
+  startingDodge: 0.2
   maxHealth: 20
   maxShield: 10
   energyText: {fileID: 1163655495}
